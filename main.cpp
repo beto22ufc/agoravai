@@ -203,7 +203,7 @@ int main(int argc, char *argv[])
     glutInitWindowSize(1400,700);
     glutInitWindowPosition(0,0);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-    readFile(&shipPoints, "C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem - Copia\\res\\nave.txt");
+    readFile(&shipPoints, "res/meteoro.txt");
     glutCreateWindow("StarShip");
     inicializar();
     glutReshapeFunc(resize);
