@@ -35,12 +35,13 @@
 #include <Ship.h>
 #include <Geometry.h>
 #include <vector>
+#include <Asteroid.h>
 
 using namespace std;
 void readFile(std::vector <Point> *points, char *fileDir);
 std::vector<Point> shipPoints;
 Textura textura;
-GLuint texturas[10];
+GLuint texturas[21];
 static int slices = 16;
 static int stacks = 16;
 GLint rox=30,roy=0,roz=0,ang;
@@ -50,6 +51,11 @@ Ship ship(Point(0,5,10));
 int wx = 0, wy = 0;
 int movimento = 0;
 //Planeta(float raio, Point posicao, float anguloOrbita, float velocidadeOrbita, GLuint *textura)
+/*
+
+    Sistema solar 1
+
+*/
 Planeta mercurio(1.0f, Point(-22.0f, 0.0f, -0.6f), 0.0f, 0.01f, &texturas[1]);
 Planeta venus(1.5f, Point(-33.0f, 0.0f, -0.6f), 0.0f, 0.009f, &texturas[2]);
 Planeta terra(2.0f, Point(-54.0f, 0.0f, -0.6f), 0.0f, 0.007f, &texturas[3]);
@@ -59,9 +65,22 @@ Saturno saturno(3.0f, Point(-108.0f, 0.0f, -0.6f), 0.0f, 0.0025f, &texturas[6]);
 Planeta urano(2.4f, Point(-129.0f, 0.0f, -0.6f), 0.0f, 0.0022f, &texturas[7]);
 Planeta neturno(1.9f, Point(-139.0f, 0.0f, -0.6f), 0.0f, 0.0020f, &texturas[8]);
 Planeta plutao(1.3f, Point(-150.0f, 0.0f, -0.6f), 0.0f, 0.0018f, &texturas[9]);
-Sol sol(45.0f, 1000.0f, texturas[0]);
+Sol sol(5, Point(0, 0, 0), 45.0f, 1000.0f, texturas[0]);
+/*
+
+    Sistema solar 2
+
+*/
+//Planeta(float raio, Point posicao, float anguloOrbita, float velocidadeOrbita, GLuint *textura)
+Sol sol2(7, Point(200, 0, 0), 45.0f, 1000.0f, texturas[19]);
+Planeta p1(1.3f, Point(-220.0f, 0.0f, -0.6f), 0.0f, 0.0018f, &texturas[10]);
+Planeta p2(2.3f, Point(-250.0f, 0.0f, -0.6f), 0.0f, 0.0018f, &texturas[11]);
+Planeta p3(1.7f, Point(-260.0f, 0.0f, -0.6f), 0.0f, 0.0018f, &texturas[12]);
+Planeta p4(0.9f, Point(-280.0f, 0.0f, -0.6f), 0.0f, 0.0018f, &texturas[13]);
+Planeta p5(4.3f, Point(-350.0f, 0.0f, -0.6f), 0.0f, 0.0018f, &texturas[14]);
 Star stars;
 
+Asteroid asteroids;
 /* GLUT callback Handlers */
 
 
@@ -96,6 +115,11 @@ static void display(void)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     //camera.atualiza(movimento);
+    /*
+
+    Sistema solar 1
+
+    */
     mercurio.draw();
     venus.draw();
     terra.draw();
@@ -105,15 +129,27 @@ static void display(void)
     urano.draw();
     neturno.draw();
     plutao.draw();
-    //sol.draw();
+    sol.draw();
+    /*
+
+    Sistema solar 2
+
+    */
+    /*
+    p1.draw();
+    p2.draw();
+    p3.draw();
+    p4.draw();
+    p5.draw();
+    sol2.draw();*/
+
+
+
     glColor3d(1,1,1);
     glPointSize(5);
-    //stars.draw();
-    glBegin(GL_LINES);
-        for (unsigned int i =0;i < shipPoints.size(); i++) {
-            glVertex3d(shipPoints[i].x, shipPoints[i].y, shipPoints[i].z);
-        }
-    glEnd();
+    stars.draw();
+    asteroids.draw();
+
     glutSwapBuffers();
     glFlush();
 }
@@ -167,7 +203,8 @@ const GLfloat high_shininess[] = { 100.0f };
 /* Program entry point */
 
 void inicializar() {
-    //stars.criarEstrelas(1000000);
+    stars.criarEstrelas(1000000);
+    asteroids.criarAsteroids(1000);
     // Habilitar o uso de texturas
 	glEnable ( GL_TEXTURE_2D );
 	glEnable(GL_COLOR_MATERIAL);
@@ -195,6 +232,18 @@ void inicializar() {
 	texturas[7] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\urano.bmp");
 	texturas[8] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\netuno.bmp");
 	texturas[9] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\plutao.bmp");
+	texturas[10] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\planeta1.bmp");
+	texturas[11] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\planeta2.bmp");
+	texturas[12] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\planeta3.bmp");
+	texturas[13] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\planeta4.bmp");
+	texturas[14] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\planeta5.bmp");
+	texturas[15] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\planeta6.bmp");
+	texturas[16] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\planeta7.bmp");
+	texturas[17] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\planeta8.bmp");
+	texturas[18] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\planeta9.bmp");
+	texturas[19] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\sol1.bmp");
+	texturas[20] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\sol2.jpg");
+
 }
 
 int main(int argc, char *argv[])
@@ -203,7 +252,7 @@ int main(int argc, char *argv[])
     glutInitWindowSize(1400,700);
     glutInitWindowPosition(0,0);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-    readFile(&shipPoints, "res/meteoro.txt");
+    readFile(&shipPoints, "C:\\Users\\Wallison\\Documents\\agoravai\\res\\meteoro.txt");
     glutCreateWindow("StarShip");
     inicializar();
     glutReshapeFunc(resize);
@@ -217,23 +266,21 @@ int main(int argc, char *argv[])
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
 
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
+    GLfloat black[] = { 0.0, 0.0, 0.0, 1.0 };
+    GLfloat dark[] = { 0.2, 0.15, 0.2, 1.0 };
+    GLfloat white[] = { 1.0, 1.0, 1.0, 1.0 };
+    GLfloat direction[] = { 0.2, 1.0, 0.5, 0.0 };
 
-    glEnable(GL_LIGHT0);
-    glEnable(GL_NORMALIZE);
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHTING);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, white);
+    glMaterialf(GL_FRONT, GL_SHININESS, 30);
 
-    glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+    glLightfv(GL_LIGHT0, GL_AMBIENT, dark);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, white);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, white);
+    glLightfv(GL_LIGHT0, GL_POSITION, direction);
 
-    glMaterialfv(GL_FRONT, GL_AMBIENT,   mat_ambient);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
-    glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
-    glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
+    glEnable(GL_LIGHTING);                // so the renderer considers light
+    glEnable(GL_LIGHT0);                  // turn LIGHT0 on
 
     glutMainLoop();
 

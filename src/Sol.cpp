@@ -10,10 +10,12 @@ Sol::~Sol()
     //dtor
 }
 
-Sol::Sol(float rotacao, float time, GLuint texture) {
+Sol::Sol(float raio, Point position, float rotacao, float time, GLuint texture) {
     this->rotacao = rotacao;
     this->time = time;
     this->texture = texture;
+    this->raio = raio;
+    this->position = position;
 }
 
 void Sol::draw(){
@@ -26,10 +28,10 @@ void Sol::draw(){
 	//glBindTexture(GL_TEXTURE_2D, textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\sol.bmp"));
     glBindTexture(GL_TEXTURE_2D, texture);
     glPushMatrix();
-        glTranslated(0.0f,0.0f,0.0f);
+        glTranslated(position.x, position.y, position.z);
         glRotated(60,1,0,0);
         glRotated(a,0,0,1);
-        gluSphere(qobj, 5, 16, 16);
+        gluSphere(qobj, raio, 16, 16);
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 }

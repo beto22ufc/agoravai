@@ -18,7 +18,7 @@ void Star::criarEstrelas(int quantidade) {
     while (conte != quantidade) {
         float x = (rand()%10000) * (pow(-1, rand()));
         float y = (rand()%10000) * (pow(-1, rand()));
-        float z = (rand()%10000) * (pow(1, rand()));
+        float z = (rand()%10000) * (pow(-1, rand()));
         //if (pow(pow(x, 2) + pow(y, 2) + pow(z, 2), 1 / 3.0f) > 15) {
         estrelas.push_back(Star(Point(x, y, z)));
 
