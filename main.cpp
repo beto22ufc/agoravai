@@ -36,18 +36,31 @@
 #include <Geometry.h>
 #include <vector>
 #include <Asteroid.h>
+#include <GL/glext.h>
+#include <Cockpit.h>
+
+
+#define BACK_ID		0									// The texture ID for the back side of the cube
+#define FRONT_ID	1									// The texture ID for the front side of the cube
+#define BOTTOM_ID	2									// The texture ID for the bottom side of the cube
+#define TOP_ID		3									// The texture ID for the top side of the cube
+#define LEFT_ID		4									// The texture ID for the left side of the cube
+#define RIGHT_ID	5
 
 using namespace std;
 void readFile(std::vector <Point> *points, char *fileDir);
+void CreateSkyBox(float x, float y, float z, float width, float height, float length);
+bool CreateTexture(GLuint &textureID, LPTSTR szFileName);
 std::vector<Point> shipPoints;
 Textura textura;
-GLuint texturas[21];
+GLuint texturas[16];
+UINT g_Texture[6];
 static int slices = 16;
 static int stacks = 16;
 GLint rox=30,roy=0,roz=0,ang;
 GLfloat angle, fAspect;
 Ship ship(Point(0,5,10));
-
+Cockpit cockpit(ship);
 int wx = 0, wy = 0;
 int movimento = 0;
 //Planeta(float raio, Point posicao, float anguloOrbita, float velocidadeOrbita, GLuint *textura)
@@ -72,12 +85,7 @@ Sol sol(5, Point(0, 0, 0), 45.0f, 1000.0f, texturas[0]);
 
 */
 //Planeta(float raio, Point posicao, float anguloOrbita, float velocidadeOrbita, GLuint *textura)
-Sol sol2(7, Point(200, 0, 0), 45.0f, 1000.0f, texturas[19]);
-Planeta p1(1.3f, Point(-220.0f, 0.0f, -0.6f), 0.0f, 0.0018f, &texturas[10]);
-Planeta p2(2.3f, Point(-250.0f, 0.0f, -0.6f), 0.0f, 0.0018f, &texturas[11]);
-Planeta p3(1.7f, Point(-260.0f, 0.0f, -0.6f), 0.0f, 0.0018f, &texturas[12]);
-Planeta p4(0.9f, Point(-280.0f, 0.0f, -0.6f), 0.0f, 0.0018f, &texturas[13]);
-Planeta p5(4.3f, Point(-350.0f, 0.0f, -0.6f), 0.0f, 0.0018f, &texturas[14]);
+
 Star stars;
 
 Asteroid asteroids;
@@ -130,26 +138,21 @@ static void display(void)
     neturno.draw();
     plutao.draw();
     sol.draw();
+    cockpit.draw();
     /*
 
     Sistema solar 2
 
     */
-    /*
-    p1.draw();
-    p2.draw();
-    p3.draw();
-    p4.draw();
-    p5.draw();
-    sol2.draw();*/
 
 
+    //CreateSkyBox(0, 0, 0, 400, 200, 400);
 
     glColor3d(1,1,1);
     glPointSize(5);
     stars.draw();
     asteroids.draw();
-
+    //ship.draw();
     glutSwapBuffers();
     glFlush();
 }
@@ -211,6 +214,12 @@ void inicializar() {
 	// Definir a forma de armazenamento dos pixels na textura (1= alinhamento por byte)
 	glPixelStorei ( GL_UNPACK_ALIGNMENT, 1 );
 
+	CreateTexture(g_Texture[BACK_ID], "C:\\Users\\Wallison\\Desktop\\agoravai-1\\texturas\\Back.bmp");
+	CreateTexture(g_Texture[FRONT_ID], "C:\\Users\\Wallison\\Desktop\\agoravai-1\\texturas\\Front.bmp");
+	CreateTexture(g_Texture[BOTTOM_ID], "C:\\Users\\Wallison\\Desktop\\agoravai-1\\texturas\\Bottom.bmp");
+	CreateTexture(g_Texture[TOP_ID], "C:\\Users\\Wallison\\Desktop\\agoravai-1\\texturas\\Top.bmp");
+	CreateTexture(g_Texture[LEFT_ID], "C:\\Users\\Wallison\\Desktop\\agoravai-1\\texturas\\Left.bmp");
+	CreateTexture(g_Texture[RIGHT_ID], "C:\\Users\\Wallison\\Desktop\\agoravai-1\\texturas\\Right.bmp");
 	// Definir quantas texturas serão usadas no programa
 	//GLuint texture_id[10]; // vetor com os números das texturas
 	glGenTextures (10, texturas);  // 1 = uma textura;
@@ -232,17 +241,13 @@ void inicializar() {
 	texturas[7] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\urano.bmp");
 	texturas[8] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\netuno.bmp");
 	texturas[9] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\plutao.bmp");
-	texturas[10] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\planeta1.bmp");
-	texturas[11] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\planeta2.bmp");
-	texturas[12] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\planeta3.bmp");
-	texturas[13] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\planeta4.bmp");
-	texturas[14] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\planeta5.bmp");
-	texturas[15] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\planeta6.bmp");
-	texturas[16] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\planeta7.bmp");
-	texturas[17] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\planeta8.bmp");
-	texturas[18] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\planeta9.bmp");
-	texturas[19] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\sol1.bmp");
-	texturas[20] = textura.LoadBitmapA("C:\\Users\\Wallison\\Documents\\Code Blocks Projects\\SolarSystem\\texturas\\bitmap\\sol2.jpg");
+	texturas[10] = textura.LoadBitmapA("C:\\Users\\Wallison\\Desktop\\agoravai-1\\texturas\\bitmap\\far.bmp");
+	texturas[11] = textura.LoadBitmapA("C:\\Users\\Wallison\\Desktop\\agoravai-1\\texturas\\bitmap\\near.bmp");
+	texturas[12] = textura.LoadBitmapA("C:\\Users\\Wallison\\Desktop\\agoravai-1\\texturas\\bitmap\\bottom.bmp");
+	texturas[13] = textura.LoadBitmapA("C:\\Users\\Wallison\\Desktop\\agoravai-1\\texturas\\bitmap\\left.bmp");
+	texturas[14] = textura.LoadBitmapA("C:\\Users\\Wallison\\Desktop\\agoravai-1\\texturas\\bitmap\\top.bmp");
+	texturas[15] = textura.LoadBitmapA("C:\\Users\\Wallison\\Desktop\\agoravai-1\\texturas\\bitmap\\right.bmp");
+
 
 }
 
@@ -301,3 +306,140 @@ void readFile(std::vector <Point> *points, char *fileDir) {
     }
     fclose(file);
 }
+
+void CreateSkyBox(float x, float y, float z, float width, float height, float length)
+{
+	// This is the most important function of this tutorial.  This function
+	// used to just create a silly colored cube in the RotateCube tutorial,
+	// but now it creates something beautiful.  You'll notice we added
+	// some more parameters to the function.  This way we can change the perspective
+	// of the sky box.  It doesn't really look good if it's a perfect cube.  Some
+	// textures look better at different ratios.  We assign the sky box textures
+	// to each side of the box creating the illusion of a detailed 3D world.
+	// You will notice I had to change the texture coordinates for every one
+	// to be flipped correctly.  Also, depending on your culling, the vertex
+	// order might need to be changed around.  I don't use culling in this tutorial
+	// so it will work fine here, but be sure to remember this if you do.
+
+	// Bind the BACK texture of the sky map to the BACK side of the cube
+	glBindTexture(GL_TEXTURE_2D, g_Texture[BACK_ID]);
+
+	// Since we want the sky box to be centered around X, Y, and Z for ease,
+	// we do a little math to accomplish this.  We just change the X, Y and Z
+	// to perform this task.  If we just minus half the width, height and length
+	// from x, y and z it will give us the desired result.  Now when we create the
+	// box it will center it around (x, y, z)
+
+	// This centers the sky box around (x, y, z)
+	x = x - width  / 2;
+	y = y - height / 2;
+	z = z - length / 2;
+
+		// Start drawing the side as a QUAD
+	glBegin(GL_QUADS);
+
+		// Assign the texture coordinates and vertices for the BACK Side
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y,			z);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y + height, z);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(x,			y + height, z);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(x,			y,			z);
+
+	glEnd();
+
+	// Bind the FRONT texture of the sky map to the FRONT side of the box
+	glBindTexture(GL_TEXTURE_2D, g_Texture[FRONT_ID]);
+
+	// Start drawing the side as a QUAD
+	glBegin(GL_QUADS);
+
+		// Assign the texture coordinates and vertices for the FRONT Side
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(x,			y,			z + length);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(x,			y + height, z + length);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y + height, z + length);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y,			z + length);
+	glEnd();
+
+	// Bind the BOTTOM texture of the sky map to the BOTTOM side of the box
+	glBindTexture(GL_TEXTURE_2D, g_Texture[BOTTOM_ID]);
+
+	// Start drawing the side as a QUAD
+	glBegin(GL_QUADS);
+
+		// Assign the texture coordinates and vertices for the BOTTOM Side
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(x,			y,			z);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(x,			y,			z + length);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y,			z + length);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y,			z);
+	glEnd();
+
+	// Bind the TOP texture of the sky map to the TOP side of the box
+	glBindTexture(GL_TEXTURE_2D, g_Texture[TOP_ID]);
+
+	// Start drawing the side as a QUAD
+	glBegin(GL_QUADS);
+
+		// Assign the texture coordinates and vertices for the TOP Side
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y + height, z);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y + height, z + length);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(x,			y + height,	z + length);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(x,			y + height,	z);
+
+	glEnd();
+
+	// Bind the LEFT texture of the sky map to the LEFT side of the box
+	glBindTexture(GL_TEXTURE_2D, g_Texture[LEFT_ID]);
+
+	// Start drawing the side as a QUAD
+	glBegin(GL_QUADS);
+
+		// Assign the texture coordinates and vertices for the LEFT Side
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(x,			y + height,	z);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(x,			y + height,	z + length);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(x,			y,			z + length);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(x,			y,			z);
+
+	glEnd();
+
+	// Bind the RIGHT texture of the sky map to the RIGHT side of the box
+	glBindTexture(GL_TEXTURE_2D, g_Texture[RIGHT_ID]);
+
+	// Start drawing the side as a QUAD
+	glBegin(GL_QUADS);
+
+		// Assign the texture coordinates and vertices for the RIGHT Side
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y,			z);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y,			z + length);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y + height,	z + length);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y + height,	z);
+	glEnd();
+}
+
+bool CreateTexture(GLuint &textureID, LPTSTR szFileName)                          // Creates Texture From A Bitmap File
+{
+	HBITMAP hBMP;                                                                 // Handle Of The Bitmap
+	BITMAP  bitmap;																  // Bitmap Structure
+
+	glGenTextures(1, &textureID);                                                 // Create The Texture
+	hBMP=(HBITMAP)LoadImage(GetModuleHandle(NULL), szFileName, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION | LR_LOADFROMFILE );
+
+	if (!hBMP)                                                                    // Does The Bitmap Exist?
+		  return FALSE;                                                           // If Not Return False
+
+	GetObject(hBMP, sizeof(bitmap), &bitmap);                                     // Get The Object
+																				  // hBMP:        Handle To Graphics Object
+																				  // sizeof(bitmap): Size Of Buffer For Object Information
+																				  // &bitmap:        Buffer For Object Information
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);                                        // Pixel Storage Mode (Word Alignment / 4 Bytes)
+
+	// Typical Texture Generation Using Data From The Bitmap
+	glBindTexture(GL_TEXTURE_2D, textureID);                                      // Bind To The Texture ID
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);			  // Linear Min Filter
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);			  // Linear Mag Filter
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, bitmap.bmWidth, bitmap.bmHeight, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, bitmap.bmBits);
+																				  // MUST NOT BE INDEX BMP, BUT RGB
+	DeleteObject(hBMP);                                                           // Delete The Object
+
+	return TRUE;                                                                  // Loading Was Successful
+}
+

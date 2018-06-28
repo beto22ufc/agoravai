@@ -18,6 +18,7 @@ public:
   void pitch(double angle);
   void roll(double angle);
   void yaw(double angle);
+  void draw();
   double getSpeed() {return speed;}
   void setSpeed(double newSpeed) {speed = newSpeed;}
 };
@@ -29,6 +30,20 @@ inline Ship::Ship(Point initialPosition):
   right(1, 0, 0),
   speed(0.01)
 {
+}
+
+
+inline void Ship::draw() {
+    glColor3d(0,1,0);
+    Point at(getPosition() + getDirection());
+    Vector up(getVertical());
+    glPushMatrix();
+        glTranslated(position.x, position.y, position.z-1);
+        glScaled(0.5, 0.1, 0.7);
+        glRotated(0.2f, at.x, at.y, at.z);
+        glRotated(0.2f, up.i, up.j, up.k);
+        glutSolidTetrahedron();
+    glPopMatrix();
 }
 
 inline void Ship::pitch(double angle) {

@@ -563,3 +563,132 @@
 	<iostream>
 	<Geometry.h>
 
+1530210830 source:c:\users\wallison\desktop\agoravai-1\main.cpp
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<stdlib.h>
+	<Sol.h>
+	<Planeta.h>
+	<Sun.h>
+	<Planet.h>
+	<Star.h>
+	<Camera.h>
+	<Saturno.h>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<Textura.h>
+	<iostream>
+	<Ship.h>
+	<Geometry.h>
+	<vector>
+	<Asteroid.h>
+	<GL/glext.h>
+	<Cockpit.h>
+
+1530127382 c:\users\wallison\desktop\agoravai-1\include\sol.h
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<Textura.h>
+	<iostream>
+	<Geometry.h>
+
+1530127382 c:\users\wallison\desktop\agoravai-1\include\textura.h
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<stdio.h>
+	<stdlib.h>
+
+1530127382 c:\users\wallison\desktop\agoravai-1\include\geometry.h
+	<cmath>
+
+1530127382 c:\users\wallison\desktop\agoravai-1\include\planeta.h
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<Textura.h>
+	<iostream>
+	<Geometry.h>
+
+1530127382 c:\users\wallison\desktop\agoravai-1\include\sun.h
+	<GLUT/glut.h>
+	<GL/glut.h>
+
+1530127382 c:\users\wallison\desktop\agoravai-1\include\planet.h
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<Textura.h>
+	<iostream>
+	<math.h>
+	<Point.h>
+
+1530127382 c:\users\wallison\desktop\agoravai-1\include\point.h
+
+1530127382 c:\users\wallison\desktop\agoravai-1\include\star.h
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<Point.h>
+	<vector>
+	<math.h>
+	<stdlib.h>
+	<iostream>
+	<Geometry.h>
+
+1530127382 c:\users\wallison\desktop\agoravai-1\include\camera.h
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<math.h>
+	<windows.h>
+
+1530127382 c:\users\wallison\desktop\agoravai-1\include\saturno.h
+	<Planeta.h>
+	<math.h>
+
+1530208964 c:\users\wallison\desktop\agoravai-1\include\ship.h
+	<Geometry.h>
+	<Object.h>
+
+1530127382 c:\users\wallison\desktop\agoravai-1\include\object.h
+
+1530127382 c:\users\wallison\desktop\agoravai-1\include\asteroid.h
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<Point.h>
+	<vector>
+	<math.h>
+	<stdlib.h>
+	<iostream>
+	<Geometry.h>
+
+1530127382 source:c:\users\wallison\desktop\agoravai-1\src\camera.cpp
+	"Camera.h"
+
+1530127382 source:c:\users\wallison\desktop\agoravai-1\src\object.cpp
+	"Object.h"
+
+1530127382 source:c:\users\wallison\desktop\agoravai-1\src\planeta.cpp
+	"Planeta.h"
+	<math.h>
+
+1530127382 source:c:\users\wallison\desktop\agoravai-1\src\saturno.cpp
+	"Saturno.h"
+
+1530127382 source:c:\users\wallison\desktop\agoravai-1\src\sol.cpp
+	"Sol.h"
+
+1530127382 source:c:\users\wallison\desktop\agoravai-1\src\star.cpp
+	"Star.h"
+
+1530127382 source:c:\users\wallison\desktop\agoravai-1\src\textura.cpp
+	"Textura.h"
+
+1530127382 source:c:\users\wallison\desktop\agoravai-1\src\asteroid.cpp
+	"Asteroid.h"
+
+1301111164 c:\program files (x86)\codeblocks\mingw\include\gl\glext.h
+	<windows.h>
+
+1529500088 c:\users\wallison\desktop\agoravai-1\include\cockpit.h
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<Ship.h>
+

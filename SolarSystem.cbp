@@ -44,7 +44,9 @@
 			<Add library="gdi32" />
 			<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/lib" />
 		</Linker>
+		<Unit filename="include/Asteroid.h" />
 		<Unit filename="include/Camera.h" />
+		<Unit filename="include/Cockpit.h" />
 		<Unit filename="include/Geometry.h" />
 		<Unit filename="include/Object.h" />
 		<Unit filename="include/Planeta.h" />
@@ -54,6 +56,7 @@
 		<Unit filename="include/Star.h" />
 		<Unit filename="include/Textura.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Asteroid.cpp" />
 		<Unit filename="src/Camera.cpp" />
 		<Unit filename="src/Object.cpp" />
 		<Unit filename="src/Planeta.cpp" />
