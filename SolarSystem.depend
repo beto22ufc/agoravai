@@ -444,60 +444,60 @@
 	<Geometry.h>
 	<Object.h>
 
-1524571540 source:c:\users\wallison\documents\agoravai\src\camera.cpp
+1530127382 source:c:\users\wallison\documents\agoravai\src\camera.cpp
 	"Camera.h"
 
-1524570560 c:\users\wallison\documents\agoravai\include\camera.h
+1530127382 c:\users\wallison\documents\agoravai\include\camera.h
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<math.h>
 	<windows.h>
 
-1530106244 source:c:\users\wallison\documents\agoravai\src\object.cpp
+1530294506 source:c:\users\wallison\documents\agoravai\src\object.cpp
 	"Object.h"
 
-1530106244 c:\users\wallison\documents\agoravai\include\object.h
+1530294506 c:\users\wallison\documents\agoravai\include\object.h
 
-1524579964 source:c:\users\wallison\documents\agoravai\src\planeta.cpp
+1530294506 source:c:\users\wallison\documents\agoravai\src\planeta.cpp
 	"Planeta.h"
 	<math.h>
 
-1530106956 c:\users\wallison\documents\agoravai\include\planeta.h
+1530127382 c:\users\wallison\documents\agoravai\include\planeta.h
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<Textura.h>
 	<iostream>
 	<Geometry.h>
 
-1524007729 c:\users\wallison\documents\agoravai\include\textura.h
+1530127382 c:\users\wallison\documents\agoravai\include\textura.h
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<stdio.h>
 	<stdlib.h>
 
-1530105354 c:\users\wallison\documents\agoravai\include\geometry.h
+1530294506 c:\users\wallison\documents\agoravai\include\geometry.h
 	<cmath>
 
-1524582210 source:c:\users\wallison\documents\agoravai\src\saturno.cpp
+1530127382 source:c:\users\wallison\documents\agoravai\src\saturno.cpp
 	"Saturno.h"
 
-1524580617 c:\users\wallison\documents\agoravai\include\saturno.h
+1530127382 c:\users\wallison\documents\agoravai\include\saturno.h
 	<Planeta.h>
 	<math.h>
 
-1530108114 source:c:\users\wallison\documents\agoravai\src\sol.cpp
+1530294506 source:c:\users\wallison\documents\agoravai\src\sol.cpp
 	"Sol.h"
 
-1524008394 c:\users\wallison\documents\agoravai\include\sol.h
+1530294506 c:\users\wallison\documents\agoravai\include\sol.h
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<Textura.h>
 	<iostream>
 
-1530116899 source:c:\users\wallison\documents\agoravai\src\star.cpp
+1530294506 source:c:\users\wallison\documents\agoravai\src\star.cpp
 	"Star.h"
 
-1530106974 c:\users\wallison\documents\agoravai\include\star.h
+1530127382 c:\users\wallison\documents\agoravai\include\star.h
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<Point.h>
@@ -507,8 +507,44 @@
 	<iostream>
 	<Geometry.h>
 
-1530106962 c:\users\wallison\documents\agoravai\include\point.h
+1530127382 c:\users\wallison\documents\agoravai\include\point.h
 
-1524008568 source:c:\users\wallison\documents\agoravai\src\textura.cpp
+1530294506 source:c:\users\wallison\documents\agoravai\src\textura.cpp
 	"Textura.h"
+
+1530294506 source:c:\users\wallison\documents\agoravai\main.cpp
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<stdlib.h>
+	<Sol.h>
+	<Planeta.h>
+	<Sun.h>
+	<Planet.h>
+	<Star.h>
+	<Camera.h>
+	<Saturno.h>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<Textura.h>
+	<iostream>
+	<Ship.h>
+	<Geometry.h>
+	<vector>
+
+1530127382 c:\users\wallison\documents\agoravai\include\sun.h
+	<GLUT/glut.h>
+	<GL/glut.h>
+
+1530127382 c:\users\wallison\documents\agoravai\include\planet.h
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<Textura.h>
+	<iostream>
+	<math.h>
+	<Point.h>
+
+1530294506 c:\users\wallison\documents\agoravai\include\ship.h
+	<Geometry.h>
+	<Object.h>
 
