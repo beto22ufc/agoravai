@@ -3,8 +3,15 @@
 
 #include <Geometry.h>
 #include <Object.h>
+#include <Missele.h>
+#include <iostream>
+#include <Asteroid.h>
+#include <vector>
+
+using namespace std;
 
 class Ship : Object{
+  Missele m;
   Point position;
   Vector forward, up, right;
   double speed;
@@ -19,6 +26,7 @@ public:
   void roll(double angle);
   void yaw(double angle);
   void draw();
+  void fire(int &flag, std::vector<Asteroid> &asteroids);
   double getSpeed() {return speed;}
   void setSpeed(double newSpeed) {speed = newSpeed;}
 };
@@ -34,7 +42,7 @@ inline Ship::Ship(Point initialPosition):
 
 
 inline void Ship::draw() {
-    glColor3d(0,1,0);
+    /*glColor3d(0,1,0);
     Point at(getPosition() + getDirection());
     Vector up(getVertical());
     glPushMatrix();
@@ -43,7 +51,38 @@ inline void Ship::draw() {
         glRotated(0.2f, at.x, at.y, at.z);
         glRotated(0.2f, up.i, up.j, up.k);
         glutSolidTetrahedron();
-    glPopMatrix();
+    glPopMatrix();*/
+    glColor3d(1,0,0);
+    cout << position.x << " " << position.y << " " << position.z <<"\n";
+    glBegin(GL_LINES);
+   //     glVertex3d(position.x, position.y, position.z);
+    //    glVertex3d(position.x, position.y, position.z-5);
+    glVertex3f(position.x, position.y-2, position.z);
+        glVertex3f(position.x, position.y-2, position.z-20);
+    glEnd();
+}
+
+inline void Ship::fire(int &flag, std::vector<Asteroid> &asteroids) {
+    if (m.alive) {
+        if (position.distanceTo(m.posicao) >= 0.01) {
+            m.alive = false;
+            flag = 0;
+            //cout << "Missel destruido!\n";
+        }
+        m.collide_with(asteroids);
+        //cout << "Missel ativo\n";
+    } else {
+        cout << "Criando novo missel!\n";
+        m.posicao = position;
+        m.forward = forward;
+        m.velocidade = 10;
+        m.alive = true;
+    }
+    m.draw();
+    m.fly();
+    //cout << "Posição: " << m.posicao.x << " " << m.posicao.y << " " << m.posicao.z;
+    cout << "Aqui fire ";
+
 }
 
 inline void Ship::pitch(double angle) {

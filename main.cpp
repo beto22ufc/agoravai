@@ -63,6 +63,7 @@ Ship ship(Point(0,5,10));
 Cockpit cockpit(ship);
 int wx = 0, wy = 0;
 int movimento = 0;
+int atirando = 0;
 //Planeta(float raio, Point posicao, float anguloOrbita, float velocidadeOrbita, GLuint *textura)
 /*
 
@@ -139,15 +140,12 @@ static void display(void)
     plutao.draw();
     sol.draw();
     cockpit.draw();
-    /*
-
-    Sistema solar 2
-
-    */
-
-
+    //ship.draw();
+    if (atirando == 1) {
+        ship.fire(atirando, asteroids.asteroids);
+        cout << "Atirando: " << atirando << "\n";
+    }
     //CreateSkyBox(0, 0, 0, 400, 200, 400);
-
     glColor3d(1,1,1);
     glPointSize(5);
     stars.draw();
@@ -163,12 +161,14 @@ static void key(unsigned char key, int x, int y) {
     switch(key) {
         case '8': ship.setSpeed(ship.getSpeed() + deltaSpeed); break;
         case 'm': ship.setSpeed(ship.getSpeed() - deltaSpeed); break;
+        case '0': ship.setSpeed(0); break;
         case 'j': ship.roll(angle); break;
         case 'l': ship.roll(-angle); break;
         case 'h': ship.yaw(angle); break;
         case ';': ship.yaw(-angle); break;
         case 'i': ship.pitch(-angle); break;
         case 'k': ship.pitch(angle);  break;
+        case 'f': atirando = 1;
     }
     glutPostRedisplay();
 }

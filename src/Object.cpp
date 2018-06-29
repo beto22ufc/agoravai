@@ -9,3 +9,8 @@ Object::~Object()
 {
     //dtor
 }
+
+
+Object::Object(Point p) {
+    posicao = p;
+}

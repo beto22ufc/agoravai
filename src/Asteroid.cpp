@@ -12,6 +12,7 @@ Asteroid::~Asteroid()
 
 Asteroid::Asteroid(Point posicao) {
     this->posicao = posicao;
+    raio = 150.5f;
 }
 void Asteroid::criarAsteroids(int quantidade) {
     int conte = 0;
@@ -44,11 +45,11 @@ void Asteroid::draw() {
             glRotated(60,1,0,0);
             glRotated(45,0,0,1);
             if (asteroid.eixo == 0) {
-                glScaled(0.5, 0.5, 0.5);
-            } else if (asteroid.eixo == 1) {
-                glScaled(1.0, 1.0, 1.0);
-            } else {
                 glScaled(1.5, 1.5, 1.5);
+            } else if (asteroid.eixo == 1) {
+                glScaled(2.0, 2.0, 2.0);
+            } else {
+                glScaled(2.5, 2.5, 1.5);
             }
             glutSolidDodecahedron();
         glPopMatrix();

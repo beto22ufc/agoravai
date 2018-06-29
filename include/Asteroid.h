@@ -23,6 +23,7 @@ class Asteroid
         Point posicao;
         int eixo;
         int size;
+        float raio;
         std::vector<Asteroid> asteroids;
         void criarAsteroids(int quantidade);
         void draw();
