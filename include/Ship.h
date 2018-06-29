@@ -72,7 +72,7 @@ inline void Ship::fire(int &flag, std::vector<Asteroid> &asteroids) {
         m.collide_with(asteroids);
         //cout << "Missel ativo\n";
     } else {
-        cout << "Criando novo missel!\n";
+        //cout << "Criando novo missel!\n";
         m.posicao = position;
         m.forward = forward;
         m.velocidade = 10;

@@ -49,8 +49,9 @@
 
 using namespace std;
 void readFile(std::vector <Point> *points, char *fileDir);
-void CreateSkyBox(float x, float y, float z, float width, float height, float length);
+void CreateSkyBox(float x, float y, float z, float width, float height, float length, GLuint texturas[16]);
 bool CreateTexture(GLuint &textureID, LPTSTR szFileName);
+void SkyBox();
 std::vector<Point> shipPoints;
 Textura textura;
 GLuint texturas[16];
@@ -82,7 +83,8 @@ Planeta plutao(1.3f, Point(-150.0f, 0.0f, -0.6f), 0.0f, 0.0018f, &texturas[9]);
 Sol sol(5, Point(0, 0, 0), 45.0f, 1000.0f, texturas[0]);
 /*
 
-    Sistema solar 2
+    Sistema solar 2 e ai?
+    ham?
 
 */
 //Planeta(float raio, Point posicao, float anguloOrbita, float velocidadeOrbita, GLuint *textura)
@@ -99,13 +101,12 @@ void FreeCreatedTexture(GLuint texture)
     glDeleteTextures(1, &texture);
 }
 
-static void resize(int width, int height)
-{
-   glViewport(0, 0, width, height);
-      glMatrixMode(GL_PROJECTION);
-      glLoadIdentity();
-      gluPerspective(60.0, (GLfloat)width/(GLfloat)height, 0.05, 300.0);
-      glMatrixMode(GL_MODELVIEW);
+static void resize(int width, int height){
+    glViewport(0, 0, width, height);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(60.0, (GLfloat)width/(GLfloat)height, 0.05, 300.0);
+    glMatrixMode(GL_MODELVIEW);
 }
 
 void timer(int v) {
@@ -123,12 +124,6 @@ void timer(int v) {
 static void display(void)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    //camera.atualiza(movimento);
-    /*
-
-    Sistema solar 1
-
-    */
     mercurio.draw();
     venus.draw();
     terra.draw();
@@ -140,17 +135,15 @@ static void display(void)
     plutao.draw();
     sol.draw();
     cockpit.draw();
-    //ship.draw();
     if (atirando == 1) {
         ship.fire(atirando, asteroids.asteroids);
-        cout << "Atirando: " << atirando << "\n";
     }
-    //CreateSkyBox(0, 0, 0, 400, 200, 400);
+    //SkyBox();
+    //CreateSkyBox(0, 0, 0, 200,200, 200, texturas);
     glColor3d(1,1,1);
     glPointSize(5);
     stars.draw();
     asteroids.draw();
-    //ship.draw();
     glutSwapBuffers();
     glFlush();
 }
@@ -213,16 +206,17 @@ void inicializar() {
 	glEnable(GL_COLOR_MATERIAL);
 	// Definir a forma de armazenamento dos pixels na textura (1= alinhamento por byte)
 	glPixelStorei ( GL_UNPACK_ALIGNMENT, 1 );
-
+    /*
 	CreateTexture(g_Texture[BACK_ID], "C:\\Users\\Wallison\\Desktop\\agoravai-1\\texturas\\Back.bmp");
 	CreateTexture(g_Texture[FRONT_ID], "C:\\Users\\Wallison\\Desktop\\agoravai-1\\texturas\\Front.bmp");
 	CreateTexture(g_Texture[BOTTOM_ID], "C:\\Users\\Wallison\\Desktop\\agoravai-1\\texturas\\Bottom.bmp");
 	CreateTexture(g_Texture[TOP_ID], "C:\\Users\\Wallison\\Desktop\\agoravai-1\\texturas\\Top.bmp");
 	CreateTexture(g_Texture[LEFT_ID], "C:\\Users\\Wallison\\Desktop\\agoravai-1\\texturas\\Left.bmp");
 	CreateTexture(g_Texture[RIGHT_ID], "C:\\Users\\Wallison\\Desktop\\agoravai-1\\texturas\\Right.bmp");
+	*/
 	// Definir quantas texturas serão usadas no programa
 	//GLuint texture_id[10]; // vetor com os números das texturas
-	glGenTextures (10, texturas);  // 1 = uma textura;
+	glGenTextures (16, texturas);  // 1 = uma textura;
 					// texture_id = vetor que guarda os números das texturas(para ir trocando depois)
 	glTexEnvf( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
 
@@ -307,11 +301,85 @@ void readFile(std::vector <Point> *points, char *fileDir) {
     fclose(file);
 }
 
-void CreateSkyBox(float x, float y, float z, float width, float height, float length)
+void SkyBox(){
+    // cade o glenable() verdade muito bem garoto palmas o mapeamento tá errado como pode ver
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texturas[10]);
+/*
+    glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.1f); glVertex3f(-256,			256,			-170);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(-256,			-256,           -170);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(256, -256, -170);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(256,  256,			-170);
+	glEnd();
+*/
+	glBegin ( GL_QUADS );
+		// Front Face
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(-200.0f, -200.0f,  200.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f( 200.0f, -200.0f,  200.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f( 200.0f,  200.0f,  200.0f);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(-200.0f,  200.0f,  200.0f);
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
+    glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, texturas[11]);
+
+    glBegin(GL_QUADS);
+		// Back Face
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(-200.0f, -200.0f, -200.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(-200.0f,  200.0f, -200.0f);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f( 200.0f,  200.0f, -200.0f);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f( 200.0f, -200.0f, -200.0f);
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
+    glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, texturas[12]);
+    glBegin(GL_QUADS);
+		// Top Face
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(-200.0f,  200.0f, -200.0f);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(-200.0f,  200.0f,  200.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f( 200.0f,  200.0f,  200.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f( 200.0f,  200.0f, -200.0f);
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
+    glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, texturas[13]);
+    glBegin(GL_QUADS);
+		// Bottom Face
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(-200.0f, -200.0f, -200.0f);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f( 200.0f, -200.0f, -200.0f);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f( 200.0f, -200.0f,  200.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(-200.0f, -200.0f,  200.0f);
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
+    glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, texturas[14]);
+    glBegin(GL_QUADS);
+		// Right face
+		glTexCoord2f(1.0f, 0.0f); glVertex3f( 200.0f, -200.0f, -200.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f( 200.0f,  200.0f, -200.0f);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f( 200.0f,  200.0f,  200.0f);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f( 200.0f, -200.0f,  200.0f);
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
+    glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, texturas[15]);
+    glBegin(GL_QUADS);
+		// Left Face
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(-200.0f, -200.0f, -200.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(-200.0f, -200.0f,  200.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(-200.0f,  200.0f,  200.0f);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(-200.0f,  200.0f, -200.0f);
+	glEnd();
+	glDisable(GL_TEXTURE_2D);
+}
+
+
+void CreateSkyBox(float x, float y, float z, float width, float height, float length, GLuint texturas[16])
 {
 	// This is the most important function of this tutorial.  This function
-	// used to just create a silly colored cube in the RotateCube tutorial,
 	// but now it creates something beautiful.  You'll notice we added
+	// used to just create a silly colored cube in the RotateCube tutorial,
 	// some more parameters to the function.  This way we can change the perspective
 	// of the sky box.  It doesn't really look good if it's a perfect cube.  Some
 	// textures look better at different ratios.  We assign the sky box textures
@@ -322,7 +390,8 @@ void CreateSkyBox(float x, float y, float z, float width, float height, float le
 	// so it will work fine here, but be sure to remember this if you do.
 
 	// Bind the BACK texture of the sky map to the BACK side of the cube
-	glBindTexture(GL_TEXTURE_2D, g_Texture[BACK_ID]);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, texturas[10]);
 
 	// Since we want the sky box to be centered around X, Y, and Z for ease,
 	// we do a little math to accomplish this.  We just change the X, Y and Z
@@ -345,9 +414,10 @@ void CreateSkyBox(float x, float y, float z, float width, float height, float le
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(x,			y,			z);
 
 	glEnd();
-
+    glDisable(GL_TEXTURE_2D);
 	// Bind the FRONT texture of the sky map to the FRONT side of the box
-	glBindTexture(GL_TEXTURE_2D, g_Texture[FRONT_ID]);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, texturas[11]);
 
 	// Start drawing the side as a QUAD
 	glBegin(GL_QUADS);
@@ -359,8 +429,12 @@ void CreateSkyBox(float x, float y, float z, float width, float height, float le
 		glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y,			z + length);
 	glEnd();
 
+
 	// Bind the BOTTOM texture of the sky map to the BOTTOM side of the box
-	glBindTexture(GL_TEXTURE_2D, g_Texture[BOTTOM_ID]);
+	glDisable(GL_TEXTURE_2D);
+
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, texturas[12]);
 
 	// Start drawing the side as a QUAD
 	glBegin(GL_QUADS);
@@ -373,7 +447,10 @@ void CreateSkyBox(float x, float y, float z, float width, float height, float le
 	glEnd();
 
 	// Bind the TOP texture of the sky map to the TOP side of the box
-	glBindTexture(GL_TEXTURE_2D, g_Texture[TOP_ID]);
+	glDisable(GL_TEXTURE_2D);
+	// Bind the FRONT texture of the sky map to the FRONT side of the box
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, texturas[13]);
 
 	// Start drawing the side as a QUAD
 	glBegin(GL_QUADS);
@@ -387,7 +464,10 @@ void CreateSkyBox(float x, float y, float z, float width, float height, float le
 	glEnd();
 
 	// Bind the LEFT texture of the sky map to the LEFT side of the box
-	glBindTexture(GL_TEXTURE_2D, g_Texture[LEFT_ID]);
+	glDisable(GL_TEXTURE_2D);
+	// Bind the FRONT texture of the sky map to the FRONT side of the box
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, texturas[14]);
 
 	// Start drawing the side as a QUAD
 	glBegin(GL_QUADS);
@@ -401,7 +481,10 @@ void CreateSkyBox(float x, float y, float z, float width, float height, float le
 	glEnd();
 
 	// Bind the RIGHT texture of the sky map to the RIGHT side of the box
-	glBindTexture(GL_TEXTURE_2D, g_Texture[RIGHT_ID]);
+	glDisable(GL_TEXTURE_2D);
+	// Bind the FRONT texture of the sky map to the FRONT side of the box
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, texturas[15]);
 
 	// Start drawing the side as a QUAD
 	glBegin(GL_QUADS);
@@ -411,7 +494,8 @@ void CreateSkyBox(float x, float y, float z, float width, float height, float le
 		glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y,			z + length);
 		glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y + height,	z + length);
 		glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y + height,	z);
-	glEnd();
+	glEnd();//agora chame esse método denovo
+	glDisable(GL_TEXTURE_2D);
 }
 
 bool CreateTexture(GLuint &textureID, LPTSTR szFileName)                          // Creates Texture From A Bitmap File

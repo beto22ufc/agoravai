@@ -514,7 +514,7 @@
 1530127382 source:c:\users\wallison\documents\agoravai\src\textura.cpp
 	"Textura.h"
 
-1530241754 source:c:\users\wallison\documents\agoravai\main.cpp
+1530277848 source:c:\users\wallison\documents\agoravai\main.cpp
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<stdlib.h>
@@ -549,7 +549,7 @@
 	<math.h>
 	<Point.h>
 
-1530241344 c:\users\wallison\documents\agoravai\include\ship.h
+1530275135 c:\users\wallison\documents\agoravai\include\ship.h
 	<Geometry.h>
 	<Object.h>
 	<Missele.h>
@@ -699,7 +699,7 @@
 	<GL/glut.h>
 	<Ship.h>
 
-1530243188 source:c:\users\wallison\documents\agoravai\src\missele.cpp
+1530273904 source:c:\users\wallison\documents\agoravai\src\missele.cpp
 	"Missele.h"
 
 1530242701 c:\users\wallison\documents\agoravai\include\missele.h

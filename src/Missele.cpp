@@ -44,9 +44,9 @@ float Missele::distance(Point p1, Point p2) {
 void Missele::collide_with(std::vector<Asteroid> &asteroids) {
     for (unsigned int i = 0;i < asteroids.size();i++) {
         Asteroid a = asteroids[i];
-        cout << end.distanceTo(a.posicao) << "<=" << a.raio << "\n";
+        //cout << end.distanceTo(a.posicao) << "<=" << a.raio << "\n";
 
-        if (distance(a.posicao, end) <= a.raio && alive) {
+        if (distance(a.posicao, end) <= a.raio) {
             asteroids.erase(asteroids.begin()+i);
             alive = false;
             break;
